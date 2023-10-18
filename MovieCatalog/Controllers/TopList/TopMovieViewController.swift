@@ -1,18 +1,38 @@
-
-
 import UIKit
 
-// MARK: - VIEWCONTROLLER
+
+// MARK: - EXTRACT FROM THIS VIEW
+protocol MovieRouting {
+    func navigateToMovieDetail(with model: TrendingEntertainmentDetails)
+}
+
+class MovieRouter: MovieRouting {
+    weak var navigationController: UINavigationController?
+
+    func navigateToMovieDetail(with model: TrendingEntertainmentDetails) {
+        let selectedViewController = SelectedViewController()
+        selectedViewController.topMovie = model
+        navigationController?.pushViewController(selectedViewController, animated: true)
+    }
+}
+
+enum Section {
+    case topMovieVC
+    case searchMovieVC
+}
+// MARK: - TO HERE
 
 class TopMovieViewController: UIViewController {
     private var topMovieList = [TrendingEntertainmentDetails]()
     let cellSpacingHeight: CGFloat = 8
     let cellHeightForRow: CGFloat = 48
 
-    typealias DataSource = UITableViewDiffableDataSource<Int, TrendingEntertainmentDetails>
-    typealias SnapShot = NSDiffableDataSourceSnapshot<Int, TrendingEntertainmentDetails>
+    typealias DataSource = UITableViewDiffableDataSource<Section, TrendingEntertainmentDetails>
+    typealias SnapShot = NSDiffableDataSourceSnapshot<Section, TrendingEntertainmentDetails>
 
     var dataSource: DataSource!
+    var router: MovieRouter?
+    
 
     private let tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
@@ -23,11 +43,13 @@ class TopMovieViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        router = MovieRouter()
+        router?.navigationController = navigationController
+
         configureLayout()
         tableView.delegate = self
         fetchData()
-        
+
         dataSource = DataSource(tableView: tableView, cellProvider: { tableView, indexPath, movie in
             guard let cell = tableView.dequeueReusableCell(withIdentifier: CustomTableViewCell.identifier, for: indexPath) as? CustomTableViewCell else {
                 return UITableViewCell()
@@ -42,8 +64,8 @@ class TopMovieViewController: UIViewController {
             do {
                 topMovieList = try await APICaller.shared.getTopMovieList()
                 var snapShot = SnapShot()
-                snapShot.appendSections([0])
-                snapShot.appendItems(topMovieList)
+                snapShot.appendSections([.topMovieVC])
+                snapShot.appendItems(topMovieList, toSection: .topMovieVC)
                 await dataSource.apply(snapShot, animatingDifferences: true)
             } catch {
                 print(error.localizedDescription)
@@ -62,9 +84,21 @@ extension TopMovieViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         cellSpacingHeight
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        <#code#>
+        tableView.deselectRow(at: indexPath, animated: true)
+        let selectedCell = topMovieList[indexPath.row]
+        router?.navigateToMovieDetail(with: selectedCell)
+    }
+
+    func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        let config = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ in
+            let action = UIAction(title: "Watchlist", image: UIImage(systemName: "plus"), identifier: nil, discoverabilityTitle: nil, state: .off) { _ in
+                print("Add to watch action here list here")
+            }
+            return UIMenu(title: "Menu", image: UIImage(systemName: "person"), identifier: nil, options: .displayInline, children: [action])
+        }
+        return config
     }
 }
 
@@ -85,9 +119,3 @@ extension TopMovieViewController {
         ])
     }
 }
-
-/*
-#Preview {
-    TopMovieViewController()
-}
-*/

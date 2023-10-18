@@ -17,9 +17,9 @@ class TabBarViewController: UITabBarController {
 
         vc1.tabBarItem.image = UIImage(systemName: "list.star")
         vc2.tabBarItem.image = UIImage(systemName: "magnifyingglass")
-        vc3.tabBarItem.image = UIImage(systemName: "bookmark")
+        vc3.tabBarItem.image = UIImage(systemName: "bookmark.fill")
 
-        vc1.title = "Top 250"
+        vc1.title = "Top 20"
         vc2.title = "Search"
         vc3.title = "Watchlist"
 

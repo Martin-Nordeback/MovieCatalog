@@ -12,7 +12,7 @@ class CustomTableViewCell: UITableViewCell {
     private var topMovieList = [TrendingEntertainmentDetails]()
 
 
-    private let uiLabel: UILabel = {
+    private let movieLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .label
@@ -40,11 +40,11 @@ class CustomTableViewCell: UITableViewCell {
     }
     
     public func configureCell(with model: TrendingEntertainmentDetails) {
-        uiLabel.text = model.title
+        movieLabel.text = model.title
     }
 
     private func configureCellsLayout() {
-        contentView.addSubview(uiLabel)
+        contentView.addSubview(movieLabel)
         contentView.addSubview(uiImageView)
 //        contentView.backgroundColor = .systemGray6
         contentView.layer.borderWidth = 2
@@ -52,9 +52,9 @@ class CustomTableViewCell: UITableViewCell {
         contentView.clipsToBounds = true
 
         NSLayoutConstraint.activate([
-            uiLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            uiLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            uiLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -60),
+            movieLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            movieLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            movieLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -60),
             uiImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             uiImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
         ])

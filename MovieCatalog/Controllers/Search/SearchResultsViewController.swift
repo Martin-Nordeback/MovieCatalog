@@ -9,21 +9,23 @@ import UIKit
 
 class SearchResultsViewController: UIViewController {
 
+    var selectedTitle: String?
+    private lazy var movies = [TrendingEntertainmentDetails]()
+//    private lazy var movies = TrendingEntertainmentDetails.sampleData
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        view.backgroundColor = .red
+        
+        
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+   
+    func filteredResult(with filter: String? = nil, limit: Int? = nil) -> [TrendingEntertainmentDetails] {
+        let filtered = movies.filter { $0.contains(filter)}
+        if let limit = limit {
+            return Array(filtered.prefix(through: limit))
+        } else {
+            return filtered
+        }
     }
-    */
-
 }
