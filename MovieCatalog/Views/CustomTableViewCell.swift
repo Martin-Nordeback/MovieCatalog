@@ -11,7 +11,6 @@ class CustomTableViewCell: UITableViewCell {
     static let identifier = "CustomTableViewCell"
     private var topMovieList = [TrendingEntertainmentDetails]()
 
-
     private let movieLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -38,7 +37,7 @@ class CustomTableViewCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     public func configureCell(with model: TrendingEntertainmentDetails) {
         movieLabel.text = model.title
     }
@@ -46,7 +45,6 @@ class CustomTableViewCell: UITableViewCell {
     private func configureCellsLayout() {
         contentView.addSubview(movieLabel)
         contentView.addSubview(uiImageView)
-//        contentView.backgroundColor = .systemGray6
         contentView.layer.borderWidth = 2
         contentView.layer.cornerRadius = 8
         contentView.clipsToBounds = true
@@ -60,4 +58,3 @@ class CustomTableViewCell: UITableViewCell {
         ])
     }
 }
-

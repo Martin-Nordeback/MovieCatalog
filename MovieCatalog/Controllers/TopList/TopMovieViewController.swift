@@ -43,6 +43,7 @@ class TopMovieViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .systemBackground
         router = MovieRouter()
         router?.navigationController = navigationController
 

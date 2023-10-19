@@ -14,8 +14,8 @@ class SearchViewController: UIViewController {
     var dataSource: DataSource!
 
     let searchResultViewController = SearchResultsViewController()
-    
-    private lazy var movies = [TrendingEntertainmentDetails]()
+
+    private var movies = [TrendingEntertainmentDetails]()
 
     private let tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
@@ -31,12 +31,21 @@ class SearchViewController: UIViewController {
         return searchBar
     }()
 
-
     override func viewDidLoad() {
         super.viewDidLoad()
         configureLayout()
         configureDataSource()
-        performQuery(with: nil)
+
+//        Task {
+//            do {
+//                let movies = try await APICaller.shared.searchMovie(with: "harry")
+//                print("Movies: \(movies)")
+//            } catch {
+//                print("Error: \(error)")
+//            }
+//        }
+//        performQuery(with: nil)
+//        performQueryApi(with: nil)
     }
 
     private func configureLayout() {
@@ -79,10 +88,29 @@ class SearchViewController: UIViewController {
         snapShot.appendItems(moviesResult, toSection: .searchMovieVC)
         dataSource.apply(snapShot, animatingDifferences: true)
     }
+
+    private func performQueryApi(with query: String?) {
+        guard let query = query, !query.isEmpty else { return }
+
+        Task {
+            do {
+                movies = try await APICaller.shared.searchMovie(with: query)
+                var snapShot = SnapShot()
+                snapShot.appendSections([.searchMovieVC])
+                snapShot.appendItems(movies, toSection: .searchMovieVC)
+                await dataSource.apply(snapShot, animatingDifferences: true)
+                print(movies)
+                print(snapShot)
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+    }
 }
 
 extension SearchViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        performQuery(with: searchText)
+//        performQuery(with: searchText)
+        performQueryApi(with: searchText)
     }
 }
