@@ -9,8 +9,6 @@ class SearchViewController: UIViewController {
 
     var dataSource: DataSource!
 
-    let searchResultViewController = SearchResultsViewController()
-
     private var movies = [TrendingEntertainmentDetails]()
 
     // MARK: - Views
@@ -21,11 +19,11 @@ class SearchViewController: UIViewController {
         return tableView
     }()
 
-    private let searchBar: UISearchBar = {
-        let searchBar = UISearchBar()
-        searchBar.translatesAutoresizingMaskIntoConstraints = false
-        searchBar.placeholder = "Search here.."
-        return searchBar
+    private let searchController: UISearchController = {
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search here.."
+        return searchController
     }()
 
 
@@ -39,9 +37,28 @@ class SearchViewController: UIViewController {
 }
 
 
-// MARK: - Data Source Configuration
-extension SearchViewController {
+// MARK: - UITableViewDataSource & Delegate
+extension SearchViewController: UITableViewDelegate {
 
+//    DELEGATE
+    private func configureLayout() {
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.title = "Search"
+        navigationItem.searchController = searchController
+        definesPresentationContext = true
+        tableView.delegate = self
+        searchController.searchResultsUpdater = self
+
+        view.addSubview(tableView)
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalToSystemSpacingBelow: view.topAnchor, multiplier: 1),
+            tableView.leadingAnchor.constraint(equalToSystemSpacingAfter: view.leadingAnchor, multiplier: 1),
+            view.trailingAnchor.constraint(equalToSystemSpacingAfter: tableView.trailingAnchor, multiplier: 1),
+            view.bottomAnchor.constraint(equalToSystemSpacingBelow: tableView.bottomAnchor, multiplier: 1),
+        ])
+    }
+
+//    DATASOURCE
     private func configureDataSource() {
         dataSource = DataSource(tableView: tableView, cellProvider: { tableView, indexPath, movie in
             guard let cell = tableView.dequeueReusableCell(withIdentifier: CustomTableViewCell.identifier, for: indexPath) as? CustomTableViewCell else {
@@ -54,10 +71,13 @@ extension SearchViewController {
 }
 
 
-// MARK: - UISearchBarDelegate
-extension SearchViewController: UISearchBarDelegate {
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        performQueryApi(with: searchText)
+// MARK: - UISearchResultsUpdating
+extension SearchViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let query = searchController.searchBar.text,
+              !query.trimmingCharacters(in: .whitespaces).isEmpty,
+              query.trimmingCharacters(in: .whitespaces).count >= 3 else { return }
+        performQueryApi(with: query)
     }
 }
 
@@ -67,11 +87,9 @@ extension SearchViewController {
 
     private func performQueryApi(with query: String?) {
         guard let query = query, !query.isEmpty else { return }
-        guard query.count >= 3 else { return }
-
         Task {
             do {
-                movies = try await APICaller.shared.searchMovie(with: query)
+                movies = try await APICaller.shared.searchMovie(with: query) // the check is made from UISearchResultsUpdating
                 var snapShot = SnapShot()
                 snapShot.appendSections([.searchMovieVC])
                 snapShot.appendItems(movies, toSection: .searchMovieVC)
@@ -82,30 +100,3 @@ extension SearchViewController {
         }
     }
 }
-
-
-// MARK: - UI Setup
-extension SearchViewController {
-    private func configureLayout() {
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.title = "Search"
-
-        for viewable in [searchBar, tableView] {
-            view.addSubview(viewable)
-            viewable.translatesAutoresizingMaskIntoConstraints = false
-        }
-        searchBar.delegate = self
-        NSLayoutConstraint.activate([
-            searchBar.topAnchor.constraint(equalToSystemSpacingBelow: view.safeAreaLayoutGuide.topAnchor, multiplier: 0),
-            searchBar.leadingAnchor.constraint(equalToSystemSpacingAfter: view.leadingAnchor, multiplier: 1),
-            view.trailingAnchor.constraint(equalToSystemSpacingAfter: searchBar.trailingAnchor, multiplier: 1),
-            tableView.topAnchor.constraint(equalToSystemSpacingBelow: searchBar.bottomAnchor, multiplier: 1),
-            tableView.leadingAnchor.constraint(equalToSystemSpacingAfter: view.leadingAnchor, multiplier: 1),
-            view.trailingAnchor.constraint(equalToSystemSpacingAfter: tableView.trailingAnchor, multiplier: 1),
-            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-        ])
-    }
-}
-
-
-

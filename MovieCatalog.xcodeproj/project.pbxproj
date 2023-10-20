@@ -18,7 +18,6 @@
 		0F2E655A2ADD59FB00C2AD15 /* SelectedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2E65592ADD59FB00C2AD15 /* SelectedViewController.swift */; };
 		0F2E655E2ADE8C5100C2AD15 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 0F2E655D2ADE8C5100C2AD15 /* SDWebImage */; };
 		0F2E65602ADE8C5100C2AD15 /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 0F2E655F2ADE8C5100C2AD15 /* SDWebImageMapKit */; };
-		0F2E65622ADEC97F00C2AD15 /* Results+SearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2E65612ADEC97F00C2AD15 /* Results+SearchResultsViewController.swift */; };
 		0F5CF9E02ADBB41B00AC9FBF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5CF9DF2ADBB41B00AC9FBF /* AppDelegate.swift */; };
 		0F5CF9E22ADBB41B00AC9FBF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5CF9E12ADBB41B00AC9FBF /* SceneDelegate.swift */; };
 		0F5CF9E42ADBB41B00AC9FBF /* TopMovieViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5CF9E32ADBB41B00AC9FBF /* TopMovieViewController.swift */; };
@@ -65,7 +64,6 @@
 		0F2E65502ADD185A00C2AD15 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		0F2E65522ADD48E800C2AD15 /* OldTopMoviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldTopMoviewViewController.swift; sourceTree = "<group>"; };
 		0F2E65592ADD59FB00C2AD15 /* SelectedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedViewController.swift; sourceTree = "<group>"; };
-		0F2E65612ADEC97F00C2AD15 /* Results+SearchResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Results+SearchResultsViewController.swift"; sourceTree = "<group>"; };
 		0F2E65652ADF9B3B00C2AD15 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		0F5CF9DC2ADBB41B00AC9FBF /* MovieCatalog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieCatalog.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F5CF9DF2ADBB41B00AC9FBF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -149,7 +147,6 @@
 			isa = PBXGroup;
 			children = (
 				0F2E65502ADD185A00C2AD15 /* SearchViewController.swift */,
-				0F2E65612ADEC97F00C2AD15 /* Results+SearchResultsViewController.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -393,7 +390,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				0F5CFA1A2ADC0E4100AC9FBF /* TrendingEntertainmentResponse+Model.swift in Sources */,
-				0F2E65622ADEC97F00C2AD15 /* Results+SearchResultsViewController.swift in Sources */,
 				0F5CFA222ADC0EA100AC9FBF /* APICaller.swift in Sources */,
 				0F2E65532ADD48E800C2AD15 /* OldTopMoviewViewController.swift in Sources */,
 				0F2E654F2ADD180400C2AD15 /* WatchListViewController.swift in Sources */,

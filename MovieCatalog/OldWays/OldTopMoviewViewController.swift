@@ -110,3 +110,17 @@ extension OldTopMovieViewController: UITableViewDelegate, UITableViewDataSource 
 //        }
 //    }
 //            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor), tabbar issue with this
+
+/*
+ 
+ NSLayoutConstraint.activate([
+     searchController.topAnchor.constraint(equalToSystemSpacingBelow: view.safeAreaLayoutGuide.topAnchor, multiplier: 0),
+     searchController.leadingAnchor.constraint(equalToSystemSpacingAfter: view.leadingAnchor, multiplier: 1),
+     view.trailingAnchor.constraint(equalToSystemSpacingAfter: searchController.trailingAnchor, multiplier: 1),
+     tableView.topAnchor.constraint(equalToSystemSpacingBelow: searchController.bottomAnchor, multiplier: 1),
+     tableView.leadingAnchor.constraint(equalToSystemSpacingAfter: view.leadingAnchor, multiplier: 1),
+     view.trailingAnchor.constraint(equalToSystemSpacingAfter: tableView.trailingAnchor, multiplier: 1),
+     tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+ ])
+ 
+ */
