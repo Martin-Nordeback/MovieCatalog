@@ -1,9 +1,3 @@
-//
-//  SearchViewController.swift
-//  MovieCatalog
-//
-//  Created by Martin Nordebäck on 2023-10-16.
-//
 
 import UIKit
 
@@ -15,7 +9,7 @@ class SearchViewController: UIViewController {
 
     var dataSource: DataSource!
 
-//    let searchResultViewController = SearchResultsViewController()
+    let searchResultViewController = SearchResultsViewController()
 
     private var movies = [TrendingEntertainmentDetails]()
 
@@ -34,11 +28,13 @@ class SearchViewController: UIViewController {
         return searchBar
     }()
 
+
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         configureLayout()
         configureDataSource()
+        performQueryApi(with: nil)
     }
 }
 
@@ -58,11 +54,20 @@ extension SearchViewController {
 }
 
 
+// MARK: - UISearchBarDelegate
+extension SearchViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        performQueryApi(with: searchText)
+    }
+}
+
+
 // MARK: - Search Functions
 extension SearchViewController {
 
     private func performQueryApi(with query: String?) {
         guard let query = query, !query.isEmpty else { return }
+        guard query.count >= 3 else { return }
 
         Task {
             do {
@@ -71,37 +76,10 @@ extension SearchViewController {
                 snapShot.appendSections([.searchMovieVC])
                 snapShot.appendItems(movies, toSection: .searchMovieVC)
                 await dataSource.apply(snapShot, animatingDifferences: true)
-                print(movies)
-                print(snapShot)
             } catch {
                 print(error.localizedDescription)
             }
         }
-    }
-
-    private func performQuery(with query: String?) {
-        guard query?.isEmpty != nil else { return }
-        let moviesResult = searchResultViewController.filteredResult(with: query).sorted { $0.title ?? "empty 0" < $1.title ?? "empty 1" }
-        var snapShot = SnapShot()
-        snapShot.appendSections([.searchMovieVC])
-        snapShot.appendItems(moviesResult, toSection: .searchMovieVC)
-        dataSource.apply(snapShot, animatingDifferences: true)
-    }
-    
-    func filteredResult(with filter: String? = nil, limit: Int? = nil) -> [TrendingEntertainmentDetails] {
-        let filtered = movies.filter { $0.contains(filter) }
-        if let limit = limit {
-            return Array(filtered.prefix(through: limit))
-        } else {
-            return filtered
-        }
-    }
-}
-
-// MARK: - UISearchBarDelegate
-extension SearchViewController: UISearchBarDelegate {
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        performQueryApi(with: searchText)
     }
 }
 
@@ -116,34 +94,18 @@ extension SearchViewController {
             view.addSubview(viewable)
             viewable.translatesAutoresizingMaskIntoConstraints = false
         }
-
         searchBar.delegate = self
-
         NSLayoutConstraint.activate([
-            searchBar.topAnchor.constraint(equalToSystemSpacingBelow: view.safeAreaLayoutGuide.topAnchor, multiplier: 3),
+            searchBar.topAnchor.constraint(equalToSystemSpacingBelow: view.safeAreaLayoutGuide.topAnchor, multiplier: 0),
             searchBar.leadingAnchor.constraint(equalToSystemSpacingAfter: view.leadingAnchor, multiplier: 1),
             view.trailingAnchor.constraint(equalToSystemSpacingAfter: searchBar.trailingAnchor, multiplier: 1),
-
-            tableView.topAnchor.constraint(equalToSystemSpacingBelow: searchBar.bottomAnchor, multiplier: 0),
-            tableView.leadingAnchor.constraint(equalToSystemSpacingAfter: view.leadingAnchor, multiplier: 0),
-            view.trailingAnchor.constraint(equalToSystemSpacingAfter: tableView.trailingAnchor, multiplier: 0),
-            view.bottomAnchor.constraint(equalToSystemSpacingBelow: tableView.bottomAnchor, multiplier: 0),
+            tableView.topAnchor.constraint(equalToSystemSpacingBelow: searchBar.bottomAnchor, multiplier: 1),
+            tableView.leadingAnchor.constraint(equalToSystemSpacingAfter: view.leadingAnchor, multiplier: 1),
+            view.trailingAnchor.constraint(equalToSystemSpacingAfter: tableView.trailingAnchor, multiplier: 1),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
         ])
     }
 }
 
 
 
-
-
-//        Task {
-//            do {
-//                let movies = try await APICaller.shared.searchMovie(with: "harry")
-//                print("Movies: \(movies)")
-//            } catch {
-//                print("Error: \(error)")
-//            }
-//        }
-//        performQuery(with: nil)
-//        performQueryApi(with: nil)
-//        performQuery(with: searchText) // from searchBar function

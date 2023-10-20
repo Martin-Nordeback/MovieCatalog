@@ -89,3 +89,24 @@ extension OldTopMovieViewController: UITableViewDelegate, UITableViewDataSource 
         return cell
     }
 }
+
+
+// FROM SEARCH VIEWS, JONATHAN EXAMPLE INCOPARTE LATER?
+//    private func performQuery(with query: String?) {
+//        guard query?.isEmpty != nil else { return }
+//        let moviesResult = searchResultViewController.filteredResult(with: query).sorted { $0.title ?? "empty 0" < $1.title ?? "empty 1" }
+//        var snapShot = SnapShot()
+//        snapShot.appendSections([.searchMovieVC])
+//        snapShot.appendItems(moviesResult, toSection: .searchMovieVC)
+//        dataSource.apply(snapShot, animatingDifferences: true)
+//    }
+//
+//    func filteredResult(with filter: String? = nil, limit: Int? = nil) -> [TrendingEntertainmentDetails] {
+//        let filtered = movies.filter { $0.contains(filter) }
+//        if let limit = limit {
+//            return Array(filtered.prefix(through: limit))
+//        } else {
+//            return filtered
+//        }
+//    }
+//            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor), tabbar issue with this

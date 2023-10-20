@@ -25,8 +25,9 @@ enum Section {
 // MARK: - TO HERE
 
 class TopMovieViewController: UIViewController {
+
     private var topMovieList = [TrendingEntertainmentDetails]()
-    let cellSpacingHeight: CGFloat = 8
+
     let cellHeightForRow: CGFloat = 48
 
     typealias DataSource = UITableViewDiffableDataSource<Section, TrendingEntertainmentDetails>
@@ -52,14 +53,7 @@ class TopMovieViewController: UIViewController {
         configureLayout()
         tableView.delegate = self
         fetchData()
-
-        dataSource = DataSource(tableView: tableView, cellProvider: { tableView, indexPath, movie in
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: CustomTableViewCell.identifier, for: indexPath) as? CustomTableViewCell else {
-                return UITableViewCell()
-            }
-            cell.configureCell(with: movie)
-            return cell
-        })
+        configureDataSource()
     }
 
     private func fetchData() {
@@ -77,15 +71,24 @@ class TopMovieViewController: UIViewController {
     }
 }
 
-// MARK: - TV-DELEGATES
+// MARK: - Data Source Configuration
+extension TopMovieViewController {
+    private func configureDataSource() {
+        dataSource = DataSource(tableView: tableView, cellProvider: { tableView, indexPath, movie in
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: CustomTableViewCell.identifier, for: indexPath) as? CustomTableViewCell else {
+                return UITableViewCell()
+            }
+            cell.configureCell(with: movie)
+            return cell
+        })
+    }
+}
 
+// MARK: - TV-DELEGATES
 extension TopMovieViewController: UITableViewDelegate {
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         cellHeightForRow
-    }
-
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        cellSpacingHeight
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -106,7 +109,6 @@ extension TopMovieViewController: UITableViewDelegate {
 }
 
 // MARK: - SETUP-UI
-
 extension TopMovieViewController {
     private func configureLayout() {
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -115,10 +117,10 @@ extension TopMovieViewController {
         view.addSubview(tableView)
 
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            tableView.topAnchor.constraint(equalToSystemSpacingBelow: view.topAnchor, multiplier: 2),
+            tableView.leadingAnchor.constraint(equalToSystemSpacingAfter: view.leadingAnchor, multiplier: 1),
+            view.trailingAnchor.constraint(equalToSystemSpacingAfter: tableView.trailingAnchor, multiplier: 1),
+            view.bottomAnchor.constraint(equalToSystemSpacingBelow: tableView.bottomAnchor, multiplier: 0),
         ])
     }
 }

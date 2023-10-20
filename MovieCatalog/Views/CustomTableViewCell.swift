@@ -21,13 +21,13 @@ class CustomTableViewCell: UITableViewCell {
         return label
     }()
 
-    private let uiImageView: UIImageView = {
-        let uiImageView = UIImageView()
-        uiImageView.image = UIImage(systemName: "star.fill")
-        uiImageView.tintColor = .systemYellow
-        uiImageView.translatesAutoresizingMaskIntoConstraints = false
-        return uiImageView
-    }()
+//    private let uiImageView: UIImageView = {
+//        let uiImageView = UIImageView()
+//        uiImageView.image = UIImage(systemName: "star.fill")
+//        uiImageView.tintColor = .systemYellow
+//        uiImageView.translatesAutoresizingMaskIntoConstraints = false
+//        return uiImageView
+//    }()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -44,17 +44,17 @@ class CustomTableViewCell: UITableViewCell {
 
     private func configureCellsLayout() {
         contentView.addSubview(movieLabel)
-        contentView.addSubview(uiImageView)
-        contentView.layer.borderWidth = 2
-        contentView.layer.cornerRadius = 8
-        contentView.clipsToBounds = true
+//        contentView.addSubview(uiImageView)
+//        contentView.layer.borderWidth = 2
+//        contentView.layer.cornerRadius = 8
+//        contentView.clipsToBounds = true
 
         NSLayoutConstraint.activate([
             movieLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             movieLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             movieLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -60),
-            uiImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            uiImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+//            uiImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+//            uiImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20), removed the star image
         ])
     }
 }
