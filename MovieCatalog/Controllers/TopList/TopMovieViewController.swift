@@ -2,6 +2,7 @@ import UIKit
 
 
 // MARK: - EXTRACT FROM THIS VIEW
+
 protocol MovieRouting {
     func navigateToMovieDetail(with model: TrendingEntertainmentDetails)
 }
@@ -20,6 +21,7 @@ enum Section {
     case topMovieVC
     case searchMovieVC
 }
+
 // MARK: - TO HERE
 
 class TopMovieViewController: UIViewController {
@@ -32,7 +34,7 @@ class TopMovieViewController: UIViewController {
 
     var dataSource: DataSource!
     var router: MovieRouter?
-    
+
 
     private let tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)

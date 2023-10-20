@@ -20,7 +20,6 @@ struct API {
     }
 }
 
-
 // MARK: - NETWORK ERROR
 
 public enum NetworkError: Error {
@@ -77,12 +76,15 @@ class APICaller {
     }
 }
 
+
 // MARK: - SEARCH RESULTS
+
+
 extension APICaller {
+
     func searchMovie(with query: String, language: String? = nil, page: Int? = nil) async throws -> [TrendingEntertainmentDetails] {
-        
         var queryParameters: [String: String] = ["query": query]
-        
+
         if let language = language {
             queryParameters["language"] = language
         }
@@ -94,10 +96,9 @@ extension APICaller {
             throw NetworkError.invalidURL
         }
 //        print(url) works https://api.themoviedb.org/3/search/movie?api_key=feb9855b002501ffca186a91b9e31080&query=harry
-        
-        
+
         let (data, response) = try await URLSession.shared.data(from: url)
-        
+
         guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
             throw NetworkError.invalidResponse
         }
@@ -111,11 +112,11 @@ extension APICaller {
         }
     }
 }
+
 // MARK: - GET-TOPLIST
 
 extension APICaller {
     func getTopMovieList(language: String? = nil, page: Int? = nil) async throws -> [TrendingEntertainmentDetails] {
-
         var queryParameters: [String: String] = [:]
 
         if let language = language {

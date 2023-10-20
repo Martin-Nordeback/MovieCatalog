@@ -9,30 +9,38 @@ import UIKit
 
 class SearchResultsViewController: UIViewController {
 
+    // MARK: - Properties
     var selectedTitle: String?
     private lazy var movies = [TrendingEntertainmentDetails]()
     let cellSpacingHeight: CGFloat = 8
     let cellHeightForRow: CGFloat = 48
-    
+
     typealias DataSource = UITableViewDiffableDataSource<Section, TrendingEntertainmentDetails>
     typealias SnapShot = NSDiffableDataSourceSnapshot<Section, TrendingEntertainmentDetails>
 
     var dataSource: DataSource!
     var router: MovieRouter?
-    
+
     private let tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.register(CustomTableViewCell.self, forCellReuseIdentifier: CustomTableViewCell.identifier)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
-    
+
+    // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .red
         configureLayout()
-        tableView.delegate = self
+        configureDataSource()
+    }
+}
 
+// MARK: - Data Source Configuration
+extension SearchResultsViewController {
+
+    private func configureDataSource() {
         dataSource = DataSource(tableView: tableView, cellProvider: { tableView, indexPath, movie in
             guard let cell = tableView.dequeueReusableCell(withIdentifier: CustomTableViewCell.identifier, for: indexPath) as? CustomTableViewCell else {
                 return UITableViewCell()
@@ -41,22 +49,22 @@ class SearchResultsViewController: UIViewController {
             return cell
         })
     }
-   
+
     func filteredResult(with filter: String? = nil, limit: Int? = nil) -> [TrendingEntertainmentDetails] {
-        let filtered = movies.filter { $0.contains(filter)}
+        let filtered = movies.filter { $0.contains(filter) }
         if let limit = limit {
             return Array(filtered.prefix(through: limit))
         } else {
             return filtered
         }
     }
-    
+}
+
+// MARK: - UI Setup
+extension SearchResultsViewController {
     private func configureLayout() {
-//        navigationController?.navigationBar.prefersLargeTitles = true
-//        navigationItem.title = "Top 20 Movies"
-
         view.addSubview(tableView)
-
+        tableView.delegate = self
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -66,6 +74,7 @@ class SearchResultsViewController: UIViewController {
     }
 }
 
+// MARK: - Tableviews Delegate
 extension SearchResultsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         cellHeightForRow
@@ -85,73 +94,3 @@ extension SearchResultsViewController: UITableViewDelegate {
         return config
     }
 }
-/*
- 
- 
-NETFLIX CLONE
-
- protocol SearchResultsViewControllerDelegate: AnyObject {
-     func searchResultViewControllerDidTapItem(_ viewModel: TitlePreviewViewModel)
- }
-
- class SearchResultsViewController: UIViewController {
-     public var titles: [Title] = [Title]()
-
-     public weak var delegate: SearchResultsViewControllerDelegate?
-
-     public let searchResultCollectionView: UICollectionView = {
-         let layout = UICollectionViewFlowLayout()
-         layout.itemSize = CGSize(width: UIScreen.main.bounds.width / 3 - 10, height: 200)
-         layout.minimumInteritemSpacing = 0
-         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-         collectionView.register(TitleCollectionViewCell.self, forCellWithReuseIdentifier: TitleCollectionViewCell.identifier)
-         return collectionView
-
-     }()
-
-     override func viewDidLoad() {
-         super.viewDidLoad()
-         view.backgroundColor = .systemBackground
-         view.addSubview(searchResultCollectionView)
-
-         searchResultCollectionView.delegate = self
-         searchResultCollectionView.dataSource = self
-     }
-
-     override func viewDidLayoutSubviews() {
-         super.viewDidLayoutSubviews()
-         searchResultCollectionView.frame = view.bounds
-     }
- }
-
- extension SearchResultsViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-         return titles.count
-     }
-
-     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TitleCollectionViewCell.identifier, for: indexPath) as? TitleCollectionViewCell else {
-             return UICollectionViewCell()
-         }
-         let title = titles[indexPath.row]
-         cell.configure(with: title.poster_path ?? "")
-         return cell
-     }
-
-     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-         collectionView.deselectItem(at: indexPath, animated: true)
-         let title = titles[indexPath.row]
-         let titleName = title.original_title ?? ""
-         APICaller.shared.getMovie(with: titleName) { [weak self] result in
-             switch result {
-             case let .success(videoElement):
-                 self?.delegate?.searchResultViewControllerDidTapItem(TitlePreviewViewModel(title: title.original_title ?? "", youtubeView: videoElement, titleOverview: title.overview ?? ""))
-
-             case let .failure(error):
-                 print(error.localizedDescription)
-             }
-         }
-     }
- }
-
- */
