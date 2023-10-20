@@ -8,6 +8,7 @@ class SearchViewController: UIViewController {
     typealias SnapShot = NSDiffableDataSourceSnapshot<Section, TrendingEntertainmentDetails>
 
     var dataSource: DataSource!
+    var router: MovieRouter?
 
     private var movies = [TrendingEntertainmentDetails]()
 
@@ -30,6 +31,8 @@ class SearchViewController: UIViewController {
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+        router = MovieRouter()
+        router?.navigationController = navigationController
         configureLayout()
         configureDataSource()
         performQueryApi(with: nil)
@@ -56,6 +59,12 @@ extension SearchViewController: UITableViewDelegate {
             view.trailingAnchor.constraint(equalToSystemSpacingAfter: tableView.trailingAnchor, multiplier: 1),
             view.bottomAnchor.constraint(equalToSystemSpacingBelow: tableView.bottomAnchor, multiplier: 1),
         ])
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let selectedCell = movies[indexPath.row]
+        router?.navigateToMovieDetail(with: selectedCell)
     }
 
 //    DATASOURCE
