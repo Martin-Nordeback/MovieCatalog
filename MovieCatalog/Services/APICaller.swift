@@ -9,6 +9,8 @@ class APICaller {
     }()
 
     let urlBuilder: URLBuilder
+    
+    var apiCallCount = 0
 
     private init(urlBuilder: URLBuilder) {
         self.urlBuilder = urlBuilder
@@ -32,6 +34,7 @@ extension APICaller {
         guard let url = urlBuilder.buildURL(for: API.Endpoints.searchMovies, with: queryParameters) else {
             throw NetworkError.invalidURL
         }
+        apiCallCount += 1
 //        print(url) works https://api.themoviedb.org/3/search/movie?api_key=feb9855b002501ffca186a91b9e31080&query=harry
 
         let (data, response) = try await URLSession.shared.data(from: url)
@@ -43,6 +46,7 @@ extension APICaller {
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
             let searchResponse = try decoder.decode(TrendingEntertainmentResponse.self, from: data)
+            print("API total calls: \(apiCallCount)")
             return searchResponse.results
         } catch {
             throw NetworkError.invalidData
