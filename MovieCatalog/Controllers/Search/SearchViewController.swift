@@ -81,8 +81,7 @@ extension SearchViewController {
 
     private func performQuery(with query: String?) {
         guard query?.isEmpty != nil else { return }
-        let moviesResult = filteredResult(with: query).sorted { $0.title ?? "empty 0" < $1.title ?? "empty 1" }
-//        let moviesResult = searchResultViewController.filteredResult(with: query).sorted { $0.title ?? "empty 0" < $1.title ?? "empty 1" }
+        let moviesResult = searchResultViewController.filteredResult(with: query).sorted { $0.title ?? "empty 0" < $1.title ?? "empty 1" }
         var snapShot = SnapShot()
         snapShot.appendSections([.searchMovieVC])
         snapShot.appendItems(moviesResult, toSection: .searchMovieVC)
