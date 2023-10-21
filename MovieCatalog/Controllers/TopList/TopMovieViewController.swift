@@ -7,6 +7,10 @@ enum Section {
 
 // MARK: - TO HERE
 
+protocol AddToWatchListProtocol {
+    func saveToWatchListAt(indexPath: IndexPath)
+}
+
 class TopMovieViewController: UIViewController {
 
     private var topMovieList = [TrendingEntertainmentDetails]()
@@ -54,6 +58,11 @@ class TopMovieViewController: UIViewController {
             }
         }
     }
+    
+
+    func saveToWatchListAt(indexPath: IndexPath) {
+        print("saving movie: \(String(describing: topMovieList[indexPath.row].title))")
+    }
 }
 
 // MARK: - Data Source Configuration
@@ -86,6 +95,7 @@ extension TopMovieViewController: UITableViewDelegate {
         let config = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ in
             let action = UIAction(title: "Watchlist", image: UIImage(systemName: "plus"), identifier: nil, discoverabilityTitle: nil, state: .off) { _ in
                 print("Add to watch action here list here")
+                self.saveToWatchListAt(indexPath: indexPath)
             }
             return UIMenu(title: "Menu", image: UIImage(systemName: "person"), identifier: nil, options: .displayInline, children: [action])
         }

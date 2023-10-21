@@ -37,6 +37,7 @@ class SelectedViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
         configureLayout()
         configurePosterImage(with: topMovie?.posterPath)
     }
@@ -55,11 +56,22 @@ class SelectedViewController: UIViewController {
         }
     }
 
+    @objc func addToWatchListActionButton() {
+        print("Action here")
+    }
+
     private func configureLayout() {
-        // TITLE
-        navigationController?.navigationBar.prefersLargeTitles = true
+        // TOOLBAR & TITLE
         navigationController?.navigationBar.tintColor = .label
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationItem.largeTitleDisplayMode = .always
+
         navigationItem.title = topMovie?.title ?? topMovie?.originalTitle
+
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            image: UIImage(systemName: "plus"),
+            style: .plain, target: self,
+            action: #selector(addToWatchListActionButton))
 
         // POSTER
         view.addSubview(posterImageView)
@@ -106,6 +118,15 @@ class SelectedViewController: UIViewController {
     }
 }
 
-// #Preview {
-//    SelectedViewController()
+// extension UIBarButtonItem {
+//    static func createCustomButton(withImage image: UIImage?, title: String?, target: Any, action: Selector) -> UIBarButtonItem {
+//        let customButton = UIButton(type: .system)
+//
+//        customButton.configuration?.titlePadding = 30
+//        customButton.configuration?.imagePadding = 30
+//
+//        customButton.addTarget(target, action: action, for: .touchUpInside)
+//
+//        return UIBarButtonItem(customView: customButton)
+//    }
 // }

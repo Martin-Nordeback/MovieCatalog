@@ -19,7 +19,7 @@ class TabBarViewController: UITabBarController {
         setViewControllers([topMovieViewController, searchViewController, watchListViewController], animated: true)
     }
 
-    func createTopMoviesViewController() -> UIViewController {
+    private func createTopMoviesViewController() -> UIViewController {
         let topMovieViewController = TopMovieViewController()
         topMovieViewController.apiCaller = APICaller.shared
         topMovieViewController.tabBarItem.image = UIImage(systemName: "list.star")
@@ -27,7 +27,7 @@ class TabBarViewController: UITabBarController {
         return UINavigationController(rootViewController: topMovieViewController)
     }
 
-    func createSearchViewController() -> UIViewController {
+    private func createSearchViewController() -> UIViewController {
         let searchViewController = SearchViewController()
         searchViewController.apiCaller = APICaller.shared
         searchViewController.tabBarItem.image = UIImage(systemName: "magnifyingglass")
@@ -35,7 +35,7 @@ class TabBarViewController: UITabBarController {
         return UINavigationController(rootViewController: searchViewController)
     }
 
-    func createWatchListViewController() -> UIViewController {
+    private func createWatchListViewController() -> UIViewController {
         let watchListViewController = WatchListViewController()
         watchListViewController.tabBarItem.image = UIImage(systemName: "bookmark.fill")
         watchListViewController.title = "Watchlist"

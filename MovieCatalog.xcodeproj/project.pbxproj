@@ -34,14 +34,14 @@
 		0F5CFA222ADC0EA100AC9FBF /* APICaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5CFA212ADC0EA100AC9FBF /* APICaller.swift */; };
 		0F5CFA232ADC0EA100AC9FBF /* APICaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5CFA212ADC0EA100AC9FBF /* APICaller.swift */; };
 		0F5CFA242ADC0EA100AC9FBF /* APICaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5CFA212ADC0EA100AC9FBF /* APICaller.swift */; };
+		0F852FD02AE4051600872388 /* SelectedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2E65592ADD59FB00C2AD15 /* SelectedViewController.swift */; };
+		0F852FD12AE4051700872388 /* SelectedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2E65592ADD59FB00C2AD15 /* SelectedViewController.swift */; };
 		0F9971952AE3C09E00C13AF3 /* APICaller+Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F9971942AE3C09E00C13AF3 /* APICaller+Protocol.swift */; };
 		0F9971972AE3C10B00C13AF3 /* URLBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F9971962AE3C10B00C13AF3 /* URLBuilder.swift */; };
 		0F9971992AE3C25A00C13AF3 /* MovieRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F9971982AE3C25A00C13AF3 /* MovieRouter.swift */; };
 		0F99719B2AE3C28800C13AF3 /* MovieRouter+Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F99719A2AE3C28800C13AF3 /* MovieRouter+Protocol.swift */; };
 		0F99719C2AE3CA9600C13AF3 /* TopMovieViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5CF9E32ADBB41B00AC9FBF /* TopMovieViewController.swift */; };
 		0F99719D2AE3CA9900C13AF3 /* TopMovieViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5CF9E32ADBB41B00AC9FBF /* TopMovieViewController.swift */; };
-		0F99719E2AE3CA9E00C13AF3 /* SelectedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2E65592ADD59FB00C2AD15 /* SelectedViewController.swift */; };
-		0F99719F2AE3CA9E00C13AF3 /* SelectedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2E65592ADD59FB00C2AD15 /* SelectedViewController.swift */; };
 		0F9971A02AE3CAA100C13AF3 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2E654C2ADD178800C2AD15 /* TabBarViewController.swift */; };
 		0F9971A12AE3CAA100C13AF3 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2E654C2ADD178800C2AD15 /* TabBarViewController.swift */; };
 		0F9971A22AE3CAA700C13AF3 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2E65502ADD185A00C2AD15 /* SearchViewController.swift */; };
@@ -178,7 +178,6 @@
 			isa = PBXGroup;
 			children = (
 				0F5CF9E32ADBB41B00AC9FBF /* TopMovieViewController.swift */,
-				0F2E65592ADD59FB00C2AD15 /* SelectedViewController.swift */,
 			);
 			path = TopList;
 			sourceTree = "<group>";
@@ -295,6 +294,7 @@
 		0F5CFA202ADC0E8E00AC9FBF /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				0F2E65592ADD59FB00C2AD15 /* SelectedViewController.swift */,
 				0F5CFA152ADBDFE700AC9FBF /* CustomTableViewCell.swift */,
 			);
 			path = Views;
@@ -500,7 +500,6 @@
 			files = (
 				0F5CFA172ADBDFE700AC9FBF /* CustomTableViewCell.swift in Sources */,
 				0F9971AE2AE3CABE00C13AF3 /* NetworkError.swift in Sources */,
-				0F99719E2AE3CA9E00C13AF3 /* SelectedViewController.swift in Sources */,
 				0F9971AC2AE3CABA00C13AF3 /* Endpoints.swift in Sources */,
 				0F9971A22AE3CAA700C13AF3 /* SearchViewController.swift in Sources */,
 				0F9971B02AE3CAC100C13AF3 /* URLBuilder.swift in Sources */,
@@ -514,6 +513,7 @@
 				0F9971B42AE3CACC00C13AF3 /* TrendingEntertainmentDetails+Extension.swift in Sources */,
 				0F9971A42AE3CAAB00C13AF3 /* WatchListViewController.swift in Sources */,
 				0F5CFA232ADC0EA100AC9FBF /* APICaller.swift in Sources */,
+				0F852FD02AE4051600872388 /* SelectedViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -528,9 +528,9 @@
 				0F9971A32AE3CAA700C13AF3 /* SearchViewController.swift in Sources */,
 				0F9971B12AE3CAC100C13AF3 /* URLBuilder.swift in Sources */,
 				0F5CFA182ADBDFE700AC9FBF /* CustomTableViewCell.swift in Sources */,
+				0F852FD12AE4051700872388 /* SelectedViewController.swift in Sources */,
 				0F5CFA242ADC0EA100AC9FBF /* APICaller.swift in Sources */,
 				0F5CFA032ADBB41D00AC9FBF /* MovieCatalogUITestsLaunchTests.swift in Sources */,
-				0F99719F2AE3CA9E00C13AF3 /* SelectedViewController.swift in Sources */,
 				0F9971B52AE3CACD00C13AF3 /* TrendingEntertainmentDetails+Extension.swift in Sources */,
 				0F9971AF2AE3CABE00C13AF3 /* NetworkError.swift in Sources */,
 				0F9971A52AE3CAAB00C13AF3 /* WatchListViewController.swift in Sources */,
