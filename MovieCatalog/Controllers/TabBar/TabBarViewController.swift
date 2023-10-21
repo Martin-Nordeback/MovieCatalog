@@ -11,27 +11,34 @@ class TabBarViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let topMovieViewController = UINavigationController(rootViewController: TopMovieViewController())
-        let searchViewController = UINavigationController(rootViewController: SearchViewController())
-        let watchListViewController = UINavigationController(rootViewController: WatchListViewController())
-
-        topMovieViewController.tabBarItem.image = UIImage(systemName: "list.star")
-        searchViewController.tabBarItem.image = UIImage(systemName: "magnifyingglass")
-        watchListViewController.tabBarItem.image = UIImage(systemName: "bookmark.fill")
-
-        topMovieViewController.title = "Top 20"
-        searchViewController.title = "Search"
-        watchListViewController.title = "Watchlist"
-
-        // Injecting the dependency into ViewControllers
-        if let topMovieVC = topMovieViewController.viewControllers.first as? TopMovieViewController {
-            topMovieVC.apiCaller = APICaller.shared
-        }
-        if let searchVC = searchViewController.viewControllers.first as? SearchViewController {
-            searchVC.apiCaller = APICaller.shared
-        }
+        let topMovieViewController = createTopMoviesViewController()
+        let searchViewController = createSearchViewController()
+        let watchListViewController = createWatchListViewController()
 
         tabBar.tintColor = .label
         setViewControllers([topMovieViewController, searchViewController, watchListViewController], animated: true)
+    }
+
+    func createTopMoviesViewController() -> UIViewController {
+        let topMovieViewController = TopMovieViewController()
+        topMovieViewController.apiCaller = APICaller.shared
+        topMovieViewController.tabBarItem.image = UIImage(systemName: "list.star")
+        topMovieViewController.title = "Top 20"
+        return UINavigationController(rootViewController: topMovieViewController)
+    }
+
+    func createSearchViewController() -> UIViewController {
+        let searchViewController = SearchViewController()
+        searchViewController.apiCaller = APICaller.shared
+        searchViewController.tabBarItem.image = UIImage(systemName: "magnifyingglass")
+        searchViewController.title = "Search"
+        return UINavigationController(rootViewController: searchViewController)
+    }
+
+    func createWatchListViewController() -> UIViewController {
+        let watchListViewController = WatchListViewController()
+        watchListViewController.tabBarItem.image = UIImage(systemName: "bookmark.fill")
+        watchListViewController.title = "Watchlist"
+        return UINavigationController(rootViewController: watchListViewController)
     }
 }
