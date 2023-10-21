@@ -11,19 +11,27 @@ class TabBarViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let vc1 = UINavigationController(rootViewController: TopMovieViewController())
-        let vc2 = UINavigationController(rootViewController: SearchViewController())
-        let vc3 = UINavigationController(rootViewController: WatchListViewController())
+        let topMovieViewController = UINavigationController(rootViewController: TopMovieViewController())
+        let searchViewController = UINavigationController(rootViewController: SearchViewController())
+        let watchListViewController = UINavigationController(rootViewController: WatchListViewController())
 
-        vc1.tabBarItem.image = UIImage(systemName: "list.star")
-        vc2.tabBarItem.image = UIImage(systemName: "magnifyingglass")
-        vc3.tabBarItem.image = UIImage(systemName: "bookmark.fill")
+        topMovieViewController.tabBarItem.image = UIImage(systemName: "list.star")
+        searchViewController.tabBarItem.image = UIImage(systemName: "magnifyingglass")
+        watchListViewController.tabBarItem.image = UIImage(systemName: "bookmark.fill")
 
-        vc1.title = "Top 20"
-        vc2.title = "Search"
-        vc3.title = "Watchlist"
+        topMovieViewController.title = "Top 20"
+        searchViewController.title = "Search"
+        watchListViewController.title = "Watchlist"
+
+        // Injecting the dependency into ViewControllers
+        if let topMovieVC = topMovieViewController.viewControllers.first as? TopMovieViewController {
+            topMovieVC.apiCaller = APICaller.shared
+        }
+        if let searchVC = searchViewController.viewControllers.first as? SearchViewController {
+            searchVC.apiCaller = APICaller.shared
+        }
 
         tabBar.tintColor = .label
-        setViewControllers([vc1, vc2, vc3], animated: true)
+        setViewControllers([topMovieViewController, searchViewController, watchListViewController], animated: true)
     }
 }

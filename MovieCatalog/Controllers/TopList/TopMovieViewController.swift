@@ -1,22 +1,5 @@
 import UIKit
 
-
-// MARK: - EXTRACT FROM THIS VIEW
-
-protocol MovieRouting {
-    func navigateToMovieDetail(with model: TrendingEntertainmentDetails)
-}
-
-class MovieRouter: MovieRouting {
-    weak var navigationController: UINavigationController?
-
-    func navigateToMovieDetail(with model: TrendingEntertainmentDetails) {
-        let selectedViewController = SelectedViewController()
-        selectedViewController.topMovie = model
-        navigationController?.pushViewController(selectedViewController, animated: true)
-    }
-}
-
 enum Section {
     case topMovieVC
     case searchMovieVC
@@ -35,6 +18,7 @@ class TopMovieViewController: UIViewController {
 
     var dataSource: DataSource!
     var router: MovieRouter?
+    var apiCaller: APICallerProtocol?
 
 
     private let tableView: UITableView = {
@@ -59,7 +43,8 @@ class TopMovieViewController: UIViewController {
     private func fetchData() {
         Task {
             do {
-                topMovieList = try await APICaller.shared.getTopMovieList()
+                guard let results = try await apiCaller?.getTopMovieList(language: nil, page: nil) else { return }
+                topMovieList = results
                 var snapShot = SnapShot()
                 snapShot.appendSections([.topMovieVC])
                 snapShot.appendItems(topMovieList, toSection: .topMovieVC)

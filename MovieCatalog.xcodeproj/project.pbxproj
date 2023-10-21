@@ -35,6 +35,10 @@
 		0F5CFA222ADC0EA100AC9FBF /* APICaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5CFA212ADC0EA100AC9FBF /* APICaller.swift */; };
 		0F5CFA232ADC0EA100AC9FBF /* APICaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5CFA212ADC0EA100AC9FBF /* APICaller.swift */; };
 		0F5CFA242ADC0EA100AC9FBF /* APICaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5CFA212ADC0EA100AC9FBF /* APICaller.swift */; };
+		0F9971952AE3C09E00C13AF3 /* APICaller+Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F9971942AE3C09E00C13AF3 /* APICaller+Protocol.swift */; };
+		0F9971972AE3C10B00C13AF3 /* URLBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F9971962AE3C10B00C13AF3 /* URLBuilder.swift */; };
+		0F9971992AE3C25A00C13AF3 /* MovieRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F9971982AE3C25A00C13AF3 /* MovieRouter.swift */; };
+		0F99719B2AE3C28800C13AF3 /* MovieRouter+Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F99719A2AE3C28800C13AF3 /* MovieRouter+Protocol.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,6 +84,10 @@
 		0F5CFA152ADBDFE700AC9FBF /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
 		0F5CFA192ADC0E4100AC9FBF /* TrendingEntertainmentResponse+Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrendingEntertainmentResponse+Model.swift"; sourceTree = "<group>"; };
 		0F5CFA212ADC0EA100AC9FBF /* APICaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICaller.swift; sourceTree = "<group>"; };
+		0F9971942AE3C09E00C13AF3 /* APICaller+Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APICaller+Protocol.swift"; sourceTree = "<group>"; };
+		0F9971962AE3C10B00C13AF3 /* URLBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLBuilder.swift; sourceTree = "<group>"; };
+		0F9971982AE3C25A00C13AF3 /* MovieRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieRouter.swift; sourceTree = "<group>"; };
+		0F99719A2AE3C28800C13AF3 /* MovieRouter+Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MovieRouter+Protocol.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -229,6 +237,8 @@
 				0F2E65552ADD594700C2AD15 /* TabBar */,
 				0F2E65572ADD596800C2AD15 /* Search */,
 				0F2E65582ADD596C00C2AD15 /* WatchList */,
+				0F9971982AE3C25A00C13AF3 /* MovieRouter.swift */,
+				0F99719A2AE3C28800C13AF3 /* MovieRouter+Protocol.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -237,8 +247,10 @@
 			isa = PBXGroup;
 			children = (
 				0F5CFA212ADC0EA100AC9FBF /* APICaller.swift */,
+				0F9971942AE3C09E00C13AF3 /* APICaller+Protocol.swift */,
 				0F2B4EBB2AE2AEA400BB1F02 /* Endpoints.swift */,
 				0F2B4EB92AE2AE7800BB1F02 /* NetworkError.swift */,
+				0F9971962AE3C10B00C13AF3 /* URLBuilder.swift */,
 				0F2B4EBD2AE2AED400BB1F02 /* URLBuilder+Protocol.swift */,
 			);
 			path = Services;
@@ -394,14 +406,18 @@
 				0F2E65532ADD48E800C2AD15 /* OldTopMoviewViewController.swift in Sources */,
 				0F2E654F2ADD180400C2AD15 /* WatchListViewController.swift in Sources */,
 				0F2B4EBE2AE2AED400BB1F02 /* URLBuilder+Protocol.swift in Sources */,
+				0F9971992AE3C25A00C13AF3 /* MovieRouter.swift in Sources */,
+				0F99719B2AE3C28800C13AF3 /* MovieRouter+Protocol.swift in Sources */,
 				0F2E65512ADD185A00C2AD15 /* SearchViewController.swift in Sources */,
 				0F5CF9E42ADBB41B00AC9FBF /* TopMovieViewController.swift in Sources */,
 				0F5CFA162ADBDFE700AC9FBF /* CustomTableViewCell.swift in Sources */,
 				0F2E655A2ADD59FB00C2AD15 /* SelectedViewController.swift in Sources */,
+				0F9971972AE3C10B00C13AF3 /* URLBuilder.swift in Sources */,
 				0F2E654D2ADD178800C2AD15 /* TabBarViewController.swift in Sources */,
 				0F2B4EBC2AE2AEA400BB1F02 /* Endpoints.swift in Sources */,
 				0F2B4EBA2AE2AE7800BB1F02 /* NetworkError.swift in Sources */,
 				0F5CF9E02ADBB41B00AC9FBF /* AppDelegate.swift in Sources */,
+				0F9971952AE3C09E00C13AF3 /* APICaller+Protocol.swift in Sources */,
 				0F2B4EC02AE2AF2F00BB1F02 /* TrendingEntertainmentDetails+Extension.swift in Sources */,
 				0F5CF9E22ADBB41B00AC9FBF /* SceneDelegate.swift in Sources */,
 			);

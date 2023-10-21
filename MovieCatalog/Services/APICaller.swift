@@ -1,18 +1,18 @@
 import Foundation
 
 // MARK: - API-MANAGER
-class APICaller {
+class APICaller: APICallerProtocol {
 
     static let shared: APICaller = {
-        let urlBuilder = DefaultURLBuilder(baseURL: API.baseURL, apiKey: API.apiKey)
+        let urlBuilder = URLBuilder(baseURL: API.baseURL, apiKey: API.apiKey)
         return APICaller(urlBuilder: urlBuilder)
     }()
 
-    let urlBuilder: URLBuilder
-    
+    let urlBuilder: URLBuilderProtocol
+
     var apiCallCount = 0
 
-    private init(urlBuilder: URLBuilder) {
+    private init(urlBuilder: URLBuilderProtocol) {
         self.urlBuilder = urlBuilder
     }
 }
@@ -56,6 +56,7 @@ extension APICaller {
 
 // MARK: - GET-TOPLIST
 extension APICaller {
+
     func getTopMovieList(language: String? = nil, page: Int? = nil) async throws -> [TrendingEntertainmentDetails] {
         var queryParameters: [String: String] = [:]
 

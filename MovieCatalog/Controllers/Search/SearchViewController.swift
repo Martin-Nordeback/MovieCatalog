@@ -9,6 +9,7 @@ class SearchViewController: UIViewController {
 
     var dataSource: DataSource!
     var router: MovieRouter?
+    var apiCaller: APICallerProtocol?
 
     private var movies = [TrendingEntertainmentDetails]()
 
@@ -95,10 +96,10 @@ extension SearchViewController: UISearchResultsUpdating {
 extension SearchViewController {
 
     private func performQueryApi(with query: String?) {
-        guard let query = query, !query.isEmpty else { return }
+        guard let query = query, !query.isEmpty, let apiCaller = apiCaller else { return }
         Task {
             do {
-                movies = try await APICaller.shared.searchMovie(with: query) // the check is made from UISearchResultsUpdating
+                movies = try await apiCaller.searchMovie(with: query, language: nil, page: nil)
                 var snapShot = SnapShot()
                 snapShot.appendSections([.searchMovieVC])
                 snapShot.appendItems(movies, toSection: .searchMovieVC)
