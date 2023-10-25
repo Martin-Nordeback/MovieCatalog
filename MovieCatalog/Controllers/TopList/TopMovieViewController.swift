@@ -58,10 +58,17 @@ class TopMovieViewController: UIViewController {
             }
         }
     }
-    
+
 
     func saveToWatchListAt(indexPath: IndexPath) {
-        print("saving movie: \(String(describing: topMovieList[indexPath.row].title))")
+        DataPersistentManager.shared.saveMoveWith(model: topMovieList[indexPath.row]) { result in
+            switch result {
+            case let .success(success):
+                print("download to database")
+            case let .failure(failure):
+                print(failure.localizedDescription)
+            }
+        }
     }
 }
 

@@ -58,6 +58,14 @@ class SelectedViewController: UIViewController {
 
     @objc func addToWatchListActionButton() {
         print("Action here")
+        DataPersistentManager.shared.saveMoveWith(model: topMovie!) { result in
+            switch result {
+                case .success(let success):
+                    print("download to database")
+                case .failure(let failure):
+                    print(failure.localizedDescription)
+            }
+        }
     }
 
     private func configureLayout() {

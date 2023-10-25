@@ -41,6 +41,17 @@ class CustomTableViewCell: UITableViewCell {
     public func configureCell(with model: TrendingEntertainmentDetails) {
         movieLabel.text = model.title
     }
+    
+//    private func addToWatchList(with indexPath: IndexPath) {
+//        DataPersistentManager.shared.saveMoveWith(model: topMovieList[indexPath.row]) { result in
+//            switch result {
+//                case .success(let success):
+//                    print("download to database")
+//                case .failure(let failure):
+//                    print(failure.localizedDescription)
+//            }
+//        }
+//    }
 
     private func configureCellsLayout() {
         contentView.addSubview(movieLabel)
