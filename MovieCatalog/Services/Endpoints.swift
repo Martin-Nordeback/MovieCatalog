@@ -9,7 +9,7 @@ import Foundation
 
 struct API {
     static let baseURL = "https://api.themoviedb.org/"
-    static let apiKey = "feb9855b002501ffca186a91b9e31080"
+    static let apiKey = ""
 
     // add more here endpoints
     enum Endpoints {
